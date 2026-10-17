@@ -5,10 +5,10 @@ Arabic words in parentheses are the exact labels you will see on screen.
 
 **One rule runs through this whole guide: the PC that has Mizan installed is the server.** Keep it on, on a UPS, and back it up.
 
-Download the installer from the latest release page:
+**Download the installer:**
 https://github.com/rogod4rk/mizan-download/releases/latest/download/mizan-setup.exe
 (or the release page: https://github.com/rogod4rk/mizan-download/releases/latest)
-The file is called `mizan-setup-<version>.exe`. There is one installer for every kind of business. The activation code you get decides if it becomes a shop, restaurant, cafe or school.
+The file is `mizan-setup.exe`. There is one installer for every kind of business. The activation code you get decides if it becomes a shop, restaurant, cafe or school.
 
 ---
 
