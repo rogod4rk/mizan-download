@@ -244,7 +244,7 @@ Honest limits:
 Until you activate, Mizan lets you look at everything but blocks new sales and purchases. Backup and restore always work.
 
 1. Log in. The activation screen (تفعيل المنظومة) opens by itself.
-   If you ever need it again: side menu, group "الإدارة والإعدادات", screen "الترخيص والأجهزة". Or press F12 and then H for "حالة المنظومة والدعم": the licence row shows the install number.
+   If you ever need it again: the "الإعدادات" button at the bottom of the side menu, then the tile "الترخيص والأجهزة". Or press F12 and then H for "حالة المنظومة والدعم": the licence row shows the install number.
 2. Find the **install number** (رقم التركيب), 16 letters and digits like `A1B2-C3D4-E5F6-7890`.
 3. Press **"نسخ الرقم"** (copy). Paste it into WhatsApp and send it to your provider with your shop name.
 4. The provider sends back a long activation code.
@@ -319,7 +319,7 @@ To bring one back (for example on a new PC): same screen, set the same destinati
 
 ### Check and take a backup now
 
-Screen "النسخ الاحتياطي والاستعادة" (group "الإدارة والإعدادات"):
+"الإعدادات" button at the bottom of the side menu, then the tile "النسخ الاحتياطي واستعادة البيانات":
 
 - "خذ نسخة الآن": backup now.
 - "افحص": checks a backup is whole. A green "سليمة (فُحصت)" is what you want.
@@ -357,7 +357,7 @@ If the old disk is dead and you have no backup copy, the data cannot be recovere
 
 ## 10. Moving from an old system (data import)
 
-Screen **"نقل البيانات (استيراد وتصدير)"** (group "التركيب والبيانات", admin login). Takes `.xlsx`, `.xls` and `.csv`.
+Screen **"نقل البيانات (استيراد وتصدير)"** (the "الإعدادات" button at the bottom of the side menu, admin login). Takes `.xlsx`, `.xls` and `.csv`.
 
 1. In the old program, find "Export", "Save to Excel" or "Print to Excel" in the items screen and the customers screen. Save to the desktop.
 2. Open the import tab (استيراد). Choose the file (اختيار ملف إكسل أو CSV).
