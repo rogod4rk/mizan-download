@@ -25,7 +25,7 @@ The file is `mizan-setup.exe`. There is one installer for every kind of business
 
 | Item | What to get |
 |---|---|
-| PC | Windows 10 or 11, 64-bit, with Microsoft Edge or Google Chrome installed. 8 GB RAM and an SSD are the sensible minimum. 4 GB has not been tested. About 400 MB of free disk for the program, plus room for your data. |
+| PC | Windows 10 or 11, 64-bit, with Microsoft Edge or Google Chrome installed (Mizan can also use Brave or Firefox). 8 GB RAM and an SSD are the sensible minimum. 4 GB has not been tested. About 400 MB of free disk for the program, plus room for your data. |
 | UPS | 650 VA or bigger. It gives you minutes to finish the sale and shut down cleanly. |
 | Receipt printer | Thermal, 80 mm, USB, with auto-cutter. Epson TM-T20III is the one we test on. XPrinter and Rongta work too. |
 | Barcode scanner | USB, "keyboard wedge" type. It needs no driver. |
@@ -52,7 +52,7 @@ Windows 10 22H2 is expected to work but has not been tried on real hardware.
 
 Nothing is downloaded during install or first run. You can do the whole job with no internet.
 
-1. On any PC with internet, download `mizan-setup.exe` and copy it to a USB stick. Name it with the version if you like, for example `mizan-setup-0.0.41.exe`.
+1. On any PC with internet, download `mizan-setup.exe` and copy it to a USB stick. Name it with the version if you like, for example `mizan-setup-0.0.52.exe`.
 2. Put the stick in the shop PC. Copy the installer to the desktop.
 3. Right-click it, then **Run as administrator**. It needs admin rights.
 4. Windows may show a blue box "Windows protected your PC". Click **More info**, then **Run anyway**. The installer is not signed with a publisher certificate yet. (Copied from a USB stick, the box may not show at all.)
@@ -66,7 +66,7 @@ Nothing is downloaded during install or first run. You can do the whole job with
 10. Mizan opens by itself.
 11. Restart Windows once. Check that Mizan opens from the desktop icon again.
 
-If there is no Edge or Chrome on the PC, the icon opens a page that tells you to install one.
+If there is no Edge or Chrome on the PC, Mizan tries Brave, then Firefox. If none exists, the icon shows a message that tells you to install one (see section 13).
 If your antivirus blocks the installer, pause it during the install only.
 
 What was installed:
@@ -92,24 +92,30 @@ The single PC keeps working with no router and no network at all.
 5. Open the users screen (إدارة المستخدمين). **Create a second admin account in your own name.** It saves you if you forget the `admin` password.
 6. Create one account per cashier. Never give cashiers the admin password.
 
+Locked out later? See "Getting back in" in section 8.
+
 ### Printer, scanner, drawer
 
-**Printer.** Sale receipts are laid out for 80 mm paper. There is no setting to switch them to 58 mm. For a proof print go to Settings (إعدادات النظام والتهيئة), tab "الأجهزة", then press "طباعة تجربة 80 ملم" (there is also "طباعة تجربة 58 ملم", a test only). Arabic letters must be joined, text must run right to left, and the dotted frame must show on all four sides. A missing side means the printer or its driver is cutting the paper.
+**Printer.** Sale receipts are laid out for 80 mm paper only. There is no setting for 58 mm. For a proof print go to Settings (إعدادات النظام والتهيئة), tab "الأجهزة", then press "طباعة تجربة 80 ملم". Arabic letters must be joined, text must run right to left, and the dotted frame must show on all four sides. A missing side means the printer or its driver is cutting the paper.
 
-**A4 prints** (statements, reports): print them from the icon window. Do not open a normal browser tab on the till PC for this. Every browser counts as a device (section 3) and can push the icon window out.
+**A4 prints and barcode labels** (statements, reports, labels). In the icon window every print goes straight to the Windows default printer, with no print box. So an A4 report or a sheet of labels comes out on the receipt printer unless you change the default first. To print on an office printer or a label printer: make it the default printer in Windows, print, then make the thermal printer the default again. Do not open a normal browser tab on the till PC to get a print box. Every browser counts as a device (section 3) and can push the icon window out.
+To keep a report as a PDF file, make "Microsoft Print to PDF" the default printer for that print, then switch back. (Not tried on a real shop PC.)
 
 **Scanner.** Open the sale screen, scan a barcode, the item is added. If you get odd letters instead of numbers, set the scanner back to factory default with its manual, then scan the "US Keyboard" code, with Windows typing in English.
 
 **Cash drawer.**
 
-- USB printer: the drawer is opened by the Windows printer driver. In the driver preferences turn on "Open drawer after print". It opens with every receipt, not only cash sales.
-- Network printer: Settings, "الأجهزة", turn on "طابعة الإيصال متصلة بالشبكة", type its IP and port 9100, then "فتح الدرج بعد البيع النقدي".
+- USB printer: Mizan sends nothing to the drawer. In the printer driver preferences in Windows turn on "Open drawer after print". The drawer then opens with every receipt, cash or card. To open it without a sale, use its key.
+- Network printer (LAN cable, port 9100): Settings, "الأجهزة", turn on "طابعة الإيصال متصلة بالشبكة", type its IP and port 9100, then turn on "فتح الدرج بعد البيع النقدي". Mizan then opens the drawer after cash sales only. A manager can also open it from the till without a sale, and each such opening is written in the audit log.
+- The Settings button "فتح الدرج الآن" and the sale-screen drawer button only show when "طابعة الإيصال متصلة بالشبكة" is on.
 
-If the drawer does not open, the cause is the driver setting, the cable or the drawer voltage. It is not Mizan.
+If the drawer does not open, the cause is the driver setting, the cable or the drawer voltage.
 
-**Customer display.** Settings, "الأجهزة", "فتح شاشة الزبون". Drag the window to the second screen and press F11. It works on the same PC only.
+**Customer display.** This is a second computer monitor plugged into the till PC, not a small pole display. Settings, "الأجهزة", "فتح شاشة الزبون". Drag the window to the second monitor and press F11. It works on the same PC only. After every restart or power cut, open it again the same way (Settings needs a manager account).
 
-**Weighing scale.** USB or RS232 scale, Chrome or Edge on Windows only. Settings, "الأجهزة". If the scale does not answer, the cashier types the weight by hand and the sale goes on.
+**Weighing scale.** Works on the main PC only: the PC the scale is plugged into (USB or RS232), and only from the Mizan icon window (Chrome or Edge on Windows). A second till, a tablet or a phone cannot read a scale. The scale must send the weight by itself as text, either all the time or when you press its print key, with 8 data bits and no parity. Most CAS and common Chinese price scales can do this. A scale that waits for a request from the PC is not read. A weight is accepted when the same reading arrives twice in a row. Unstable, overload, negative and garbled readings are refused. Settings, "الأجهزة": turn on "إظهار زر قراءة الميزان في الفاتورة", set the baud rate (usually 9600), then press "قراءة الوزن الآن" to test. If the scale does not answer, the cashier types the weight by hand and the sale goes on.
+
+**Scale labels.** A scale that prints barcode labels (prefix 20 to 29) works on every device, with no cable and no internet. Settings, tab "نقطة البيع", "باركود الميزان". The item code inside the label must match the item's barcode in Mizan, and the item must be marked "يباع بالوزن". A label with the weight inside is exact. A label with the price inside is turned into a weight with three decimals, so the receipt can differ from the label by a few dirhams.
 
 ---
 
@@ -117,7 +123,8 @@ If the drawer does not open, the cause is the driver setting, the cable or the d
 
 Use this when you want a second till, a tablet, a kitchen printer, or waiter phones.
 
-**The other devices are only browsers. You install nothing on them.** They open Mizan from the main PC over your shop's router.
+**The other devices are only browsers. You install nothing on them.** They open Mizan from the main PC over your shop's router, by the PC's address, on the same Wi-Fi.
+There is no Mizan app to install on a phone or tablet, and Mizan is not an installable app. Open the shop address in the browser. You can put a shortcut on the home screen, but it still only works on the shop network.
 
 ### Setup
 
@@ -177,20 +184,20 @@ More devices or a bigger size: ask your provider for a new code. See section 7.
 
 Sign in on the second PC with its own cashier account. Both tills share one stock and one cash book. If both sell the last unit in the same second, one sale goes through and the other is refused with an out-of-stock message.
 
-Receipts print through the browser of the device you sell on. The thermal printer is plugged into the main PC. A tablet cannot print on it unless it is shared on the network. For the kitchen, see below.
+Receipts print through the browser of the device you sell on. The thermal printer is plugged into the main PC. A tablet cannot print on it unless it is shared on the network. The scale and the customer display work on the main PC only. Weighed barcode labels work on every device. For the kitchen, see below.
 
 ### Kitchen printer, waiter phones (restaurant and cafe codes)
 
-- The server prints kitchen tickets itself, over the network, to the kitchen printer. It does not matter which device sent the order.
+- Kitchen tickets go to a **network** kitchen printer: the server sends them over the shop network, so it does not matter which device sent the order.
 - Use a **network** ESC/POS thermal printer (LAN cable, port 9100). **Give it a fixed IP.** XPrinter models ship on `192.168.123.100`, outside the usual router range, so set a fixed address inside your router range.
 - Settings, tab "طابعة المطبخ": switch on "تفعيل طابعة المطبخ", type the printer IP, port 9100, choose when to print:
   - "عند «الإرسال للمطبخ» في شاشة الطاولات"
   - "عند تسديد بيعة كاونتر تحتوي صنف مطبخ"
   - "الحالتان معاً"
-- Press "طباعة ورقة تجربة".
+- Press "حفظ وتطبيق التغييرات", then "طباعة ورقة تجربة". The test needs saved settings. If paper comes out but Mizan says the printer did not confirm, that printer does not answer over the network, and every ticket would also print a second time at the counter. Use another printer.
 - On each menu item, tick "يُرسل إلى المطبخ" in the item card (بطاقة صنف). An item without it never prints in the kitchen.
 - Waiters use the tables screen (الطاولات والطلبات المفتوحة) on a phone or tablet browser with their own login. Each waiter phone counts as a device and each waiter as a user, so check your size.
-- If the kitchen printer is off in Settings, Mizan prints the ticket through the browser of the device instead.
+- If the kitchen printer is off in Settings, or a send to it fails, the ticket prints on the printer of the device that sent it: on the till PC that is the receipt printer at the counter, on a phone a print box opens.
 
 **There is no kitchen display screen yet.** The kitchen gets paper tickets. A tablet cannot act as a kitchen screen.
 
@@ -251,7 +258,7 @@ If an import times out, Mizan tells you to look at "تراجع عن آخر اس�
 **Path B: no file, only goods on shelves.**
 
 1. Get a USB barcode scanner and Excel or LibreOffice.
-2. In the import tab press "نموذج الأصناف". It downloads an Excel file with the barcode column already set as Text, and one example row.
+2. In the import tab press "نموذج الأصناف". It downloads an Excel file with the barcode column already set as Text, and one example row. If Excel says the file format does not match its name and asks whether to open it, press Yes. The same happens with the Excel button on report screens.
 3. Open it. Go shelf by shelf. Scan the barcode (the scanner presses Enter), then type name, sale price, wholesale price, cost from the last supplier invoice, and the counted quantity. One row per product.
 4. Save it as it is, or as `.xlsx`. **Not as CSV**, because Excel damages barcodes in CSV (you get `6.24E+12`).
 5. Products without a barcode: give them short codes (1001, 1002...) and print labels later from the barcode labels screen.
@@ -283,8 +290,9 @@ After login, the till asks for the opening cash. Count the drawer and type the r
 
 Internet is only used for:
 
-- Sharing by WhatsApp (invoices, statements, reminders, the end-of-day digest). The device opens WhatsApp, so that device needs internet.
-- Updates over the internet, if your provider switched that on.
+- Sharing by WhatsApp (receipts, statements, quotations, purchase orders, debt reminders, payslips, school messages, the end-of-day digest). Mizan opens WhatsApp with the message already typed and a person presses send, one message at a time. That device needs internet.
+- Downloading a new installer (`mizan-setup.exe`) from the download page, on any PC with internet (section 11). Mizan never downloads updates by itself.
+- Uploading your outside backup, if you chose a OneDrive or Google Drive folder (section 9). Their own app does the upload, and it needs internet.
 - Remote support, when you ask for it.
 - The Start menu shortcut "دليل التركيب", which opens this guide online.
 
@@ -294,7 +302,7 @@ Internet is only used for:
 - A UPS gives you time to finish the sale and shut down. In Windows power settings, set the PC to shut down at 20% battery.
 - A confirmed invoice survives a power cut. An invoice you were still typing does not exist yet.
 - **While the server PC is off, tablets, phones and second tills cannot open Mizan.** The main PC itself can open the icon once its server is up.
-- A power cut can set a PC clock back when its clock battery is dead. Mizan no longer logs everyone out for that. Still fix the date and time in Windows.
+- A power cut can set a PC clock back when its clock battery is dead. Mizan no longer logs everyone out for that. Still fix the date and time in Windows (see the red bar in section 13).
 
 ### When the server is not ready
 
@@ -322,11 +330,13 @@ A tablet can lose the server for a moment (Wi-Fi drop, server restarting). If th
 
 **Backup outside the shop.** Screen "النسخ الاحتياطي والاستعادة", section "النسخ خارج المحل". Set it up as in section 9.
 
-**Updates over the internet.** Screen "تحديثات المنظومة". Off unless your provider sets the update link. See section 11.
+**Updates.** There is no update over the internet inside Mizan. You update by running the new installer over the old one (section 11). The screen "تحديثات المنظومة" shows your version and says the same.
 
 **Remote support.** On a call, your provider may ask you to run RustDesk (free). It shows a number and a temporary password on your screen, you read them out, and the provider sees your screen only for that call. Close it when done. It leaves nothing running.
 
-**WhatsApp.** Invoices, account statements, instalment and debt reminders, and the end-of-day digest (نشرة نهاية اليوم) open WhatsApp from the browser. You press send.
+**WhatsApp.** Mizan writes the message and opens WhatsApp on the customer's or supplier's number: receipts, account statements, quotations, purchase orders, overdue debt and instalment reminders, payslips, school fee and attendance messages, and the end-of-day digest (نشرة نهاية اليوم). You read it and press send inside WhatsApp. Nothing is sent by itself. There is no bulk sending: the reminder screen (تذكير المتأخرين) opens one customer at a time. Files are not attached: if you want the PDF, save it and attach it in WhatsApp yourself.
+Set it up once on the till PC: install WhatsApp Desktop and link it to the shop's phone (on the phone: WhatsApp, Linked devices). Or use WhatsApp Web: scan the code once inside Mizan's window and it stays linked. If the shop phone goes about two weeks without opening WhatsApp, the PC is logged out and you scan again. On phones and tablets the WhatsApp app opens directly.
+With no internet the WhatsApp page cannot open and nothing is sent: send it again when the internet is back. A very long message, such as a price list of several hundred items, is too long for a WhatsApp link. Mizan then tells you on screen what to do, for example to shorten it or paste the text yourself.
 
 **More than one branch.** Each branch is its own shop: its own PC, its own database, its own licence (one licence is one location). A branch keeps selling when the link between branches is down.
 The screens are "إدارة المتاجر المتعددة" (rollup of all branches' sales) and "تحويل بين الفروع وقوائم موحدة" (stock transfers by signed package, price push, consolidated trial balance, income statement and balance sheet).
@@ -334,13 +344,16 @@ Honest limits:
 
 - **Linking branches is technician work.** There is no screen to add a branch.
 - The rollup reads each branch's database over a network link between the servers. Mizan does not provide that link. A branch that cannot be reached is shown as unreachable with its last known figures and date. It is never shown as zero.
-- A stock transfer travels as a signed file or a WhatsApp text, so it works with no live link.
+- A stock transfer travels as a signed file, or as pasted text in WhatsApp when it is short, so it works with no live link. Send big packages (a price push for all items) as the file.
+- The button "بالشبكة" sends a transfer only when both branches are on the same shop network and the receiving PC is set up for other devices (section 3). It shows only for a branch whose address you saved. Branches in different places send the package as a file or a WhatsApp text.
 
 ### What does not exist yet
 
-- **A Mizan backup server.** It is planned. The code exists but it is not running anywhere for shops yet. Do not count on it. Use a USB stick or a synced folder (section 9).
+- **A Mizan backup server.** It is planned, not running. The backup screen does not offer it. Use a USB stick, or a OneDrive or Google Drive folder (section 9).
+- **Updates over the internet.** Not available. Use the new installer (section 11).
+- **Automatic WhatsApp sending.** Mizan never sends a WhatsApp message by itself: no scheduled digest, no automatic debt reminders, no sending to a whole list. Doing that legally needs a paid WhatsApp Business Platform account from Meta, its own phone number and internet on the shop PC. Ask your provider if you need it.
 - **A true online or cloud mode.** There is none. Mizan is not a website you sign up to.
-- **Owner access from home.** There is no relay, tunnel or cloud view. The owner dashboard (لوحة المالك) opens from the shop network only. From home you get the WhatsApp end-of-day digest and your outside backups.
+- **Owner access from home.** There is no relay, tunnel or cloud view. The owner dashboard (لوحة المالك) opens from the shop network only. From home you see the end-of-day digest on WhatsApp only when someone at the shop sends it: the close-day wizard has a step for it, and the bell reminds at the hour set on the digest screen. You also have your outside backups.
 - **Running the server on an online VPS.** Not supported yet. The server and the installer are built for Windows only, and the web server speaks plain http without HTTPS.
 - **Do not forward port 5009 from your router to the internet.** It has no HTTPS in front of it.
 
@@ -367,7 +380,7 @@ If it fails, you can press "الدخول بوضع محدود": reading, reports 
 - After the end date there are **14 days of grace** with a banner. Selling still works.
 - After the grace, new sales, purchases and receipts are blocked. Reports, statements, backup and restore keep working. Paste the new code and you are selling again.
 - A permanent licence never expires.
-- Care (رعاية ميزان) has its own date on the same screen. When it ends, updates over the internet stop. Selling never stops because of Care.
+- Care (رعاية ميزان) has its own date on the same screen. It covers updates and support from your provider. When it ends, selling, backups and restore keep working.
 - The same screen lets you apply any other code from your provider: extra device, bigger size, Care.
 
 ---
@@ -376,6 +389,11 @@ If it fails, you can press "الدخول بوضع محدود": reading, reports 
 
 - **Login.** Shop code, username, password. The shop code sits in a collapsed line "رمز المتجر (اتركه فارغاً إن كان لديك متجر واحد)". The screen says you can leave it empty with one shop.
   **Type it anyway, every time, on every device.** On older versions, logging in without it can make the backup list look empty, because the daily backups are saved under your shop code.
+- **Getting back in.**
+  - *Cashier forgot the username.* On the login screen, under "دخل من هذا الجهاز", the names of people who logged in on this PC before show as buttons. Tap yours to fill the username, then type the password. If your name is not there, the owner sees every login name in Settings, then المستخدمون والموظفون, then إدارة المستخدمين, column "اسم الدخول".
+  - *Cashier forgot the password.* The owner changes it on the same screen with the key button next to the name. Nobody can see the old password.
+  - *Owner locked out.* On the main PC (the one running Mizan) open Start menu, then ميزان, then "استعادة دخول صاحب المحل". It needs a Windows administrator: Windows asks once, click Yes. Type a new password (8 characters or more) twice and press "استعادة الدخول". A window shows the login name in large type. Nothing is deleted from sales or accounts. Mizan must be open and running. The event shows in the activity screen as owner_reset. Shops installed before v0.0.52 do not have this shortcut: run the new installer over the old one (section 11) and it appears.
+  - *Check the keyboard first.* If you see "لوحة المفاتيح على العربية؟", switch with Alt+Shift and type again. If you see the Caps Lock warning, turn Caps Lock off. Many failed logins are keyboard mistakes, not wrong passwords.
 - **How long you stay logged in.** A login lasts 7 days and renews itself while you work, so a till in use never logs out. A till left closed for more than 7 days needs one login.
   - Disabling a user, changing a password, logging out or retiring a device still ends that session at once.
   - If the owner gives or removes a permission, the server obeys at once. The menus of an open till catch up within about an hour of work, with no re-login.
@@ -423,7 +441,9 @@ The health screen has the same amber row "نسخة خارج المحل", with a 
 
 ### Set up the outside copy (once)
 
-Screen "النسخ الاحتياطي والاستعادة", section "النسخ خارج المحل", choice "فلاشة أو مجلد شبكة".
+Screen "النسخ الاحتياطي والاستعادة", section "النسخ خارج المحل", choice "فلاشة أو مجلد مزامنة". Type the full path of a folder on a USB stick or on this PC.
+
+**A folder on another PC in the network, or a mapped network drive letter, does not work.** The Mizan server runs as a Windows system task and cannot see them. Saving such a path is refused with "المجلد غير موجود أو الفلاشة غير موصولة".
 
 **Option 1: a USB stick**
 
@@ -438,13 +458,17 @@ Screen "النسخ الاحتياطي والاستعادة", section "النسخ
 - Use a new empty folder, or copy `mizan-offsite.json` from the other stick first. A folder that already holds backups but has no `mizan-offsite.json` is refused with a message that says so.
 - **Make a backup right after swapping**, because the new stick gets nothing until a new backup exists.
 
-**Option 2: a Google Drive or OneDrive folder on the PC**
+**Option 2: a OneDrive or Google Drive folder on the PC**
 
-1. Install Google Drive for desktop or OneDrive on the shop PC and sign in. (This needs internet. Mizan itself does not.)
-2. Give Mizan a **real folder path** inside the synced folder, for example a `MizanBackup` folder under your user's `OneDrive` or `Google Drive` folder. Do not use a mapped drive letter (for example the `G:` drive that Google Drive can show): the Mizan server runs as a system task and may not see drives that belong to your own Windows login. (Not verified on a real Windows PC.)
+1. Install OneDrive (it comes with Windows) or Google Drive for desktop on the shop PC and sign in. Uploading needs internet. Mizan itself does not.
+2. Give Mizan the full folder path, never a drive letter:
+   - OneDrive: for example `C:\Users\<you>\OneDrive\MizanBackup`.
+   - Google Drive: in its settings choose "Mirror files", so a real folder exists, then use for example `C:\Users\<you>\My Drive\MizanBackup`. The default "Stream files" gives only a `G:` drive, which Mizan cannot see.
 3. Same passphrase rule, same buttons.
+4. Check once: after "زامن الآن", open the OneDrive or Google Drive web page and look for the encrypted files.
+5. To bring a copy back on a new PC, first let the folder download fully to the disk (OneDrive: right-click the folder, "Always keep on this device"), then follow "Bring an outside copy back".
 
-Google Drive's folder path on Windows has not been verified on a real shop PC. Test it: after "زامن الآن", check that the encrypted files appear in the Drive web page.
+This has not been tested on a real shop PC yet. The system task and mapped drive limits above come from how Windows works, not from a test.
 
 **What is stored there.** Everything is encrypted on the PC before it leaves (AES-256, key from your passphrase). The files are encrypted pieces, not a ready `.sql`. The newest 7 snapshots are kept. The key is also stored on the shop PC, so the protection is against whoever holds the outside copy.
 
@@ -511,27 +535,20 @@ If the old disk is dead and you have no backup copy, the data cannot be recovere
 
 ## 11. Updating to a new version
 
-You do not have to take a backup first: the update takes a safety backup by itself. Copying a recent backup to USB is still a good habit.
+Updating means running the new installer over the old one, on the main PC where Mizan is installed. Mizan does not download updates by itself, and there is no update over the internet inside Mizan. The screen "تحديثات المنظومة" shows your version and says the same.
 
-**Way 1, inside Mizan.** Screen "تحديثات المنظومة".
+You do not have to take a backup first: the installer takes a safety backup by itself. Copying a recent backup to USB is still a good habit.
 
-- The box "قناة التحديث" says "مفعَّلة (اتصال بالإنترنت)" or "معطَّلة (فلاشة فقط)". If it is off, your provider has not set the update link: use way 2.
-- If on: "افحص وجود تحديث", then "نزّل التحديث", "اعتمِد التحديث", "ركّب التحديث", and when asked "إعادة التشغيل الآن".
-- It installs only between 23:00 and 05:00. To install now with the shop closed, tick "ركّب الآن رغم وقت البيع".
-- It takes a backup first and rolls back by itself if the database upgrade or the new program fails.
-- It needs an active Care (رعاية ميزان) and internet.
+1. On any PC with internet, open github.com/rogod4rk/mizan-download/releases/latest and download `mizan-setup.exe`. (`mizan-demo.exe` is the demo copy, not for a shop.) Copy it to the main PC. A USB stick is fine.
+2. Run it (right-click, Run as administrator) over the old one. Do not uninstall first.
+3. It recognises the existing install and fills in your shop code. **Keep the same shop code.** A different code is refused with the message "هذا الجهاز مركَّب لمحل رمزه ...", before anything is touched.
+4. **It does not ask for an admin password on an update.** Your password, sales and settings stay.
+5. **The "other devices" box is ticked by itself** if the shop was already on the network, so other tills stay connected. Untick it only if you want to close the network. Leave your own extra lines in `mizan.env` alone: they are kept.
+6. Before the database is touched, it saves a full backup into `C:\MizanData\backups`, named `<shopcode>_safety_<date>.sql` with its `.json` card. It shows in the backup list as a safety copy. If this backup fails, the update stops and the shop stays stopped until you run the installer again.
+7. Then it stops Mizan, copies the new files, upgrades the database and starts Mizan again.
+8. If you see "لم يكتمل التجهيز", Mizan starts the old setup again by itself. Do not delete `C:\MizanData`. Send `C:\MizanData\logs\setup.log` and a photo of the screen to your provider.
 
-**Way 2, a new installer.** This is how updates arrive when the update link is off: the screen itself says "تصل التحديثات كتركيب جديد عبر فلاشة".
-
-1. Copy the new `mizan-setup-<version>.exe` to the server PC (USB stick is fine) and run it (right-click, Run as administrator). Run it over the old one. Do not uninstall first.
-2. It recognises the existing install and fills in your shop code. **Keep the same shop code.** A different code is refused with the message "هذا الجهاز مركَّب لمحل رمزه ...", before anything is touched.
-3. **It does not ask for an admin password on an update.** Your password, sales and settings stay.
-4. **The "other devices" box is ticked by itself** if the shop was already on the network, so other tills stay connected. Untick it only if you want to close the network. Leave your own extra lines in `mizan.env` alone: they are kept.
-5. Before the database is touched, it saves a full backup into `C:\MizanData\backups`, named `<shopcode>_safety_<date>.sql` with its `.json` card. It shows in the backup list as a safety copy. If this backup fails, the update stops and the shop stays stopped until you run the installer again.
-6. Then it stops Mizan, copies the new files, upgrades the database and starts Mizan again.
-7. If you see "لم يكتمل التجهيز", Mizan starts the old setup again by itself. Do not delete `C:\MizanData`. Send `C:\MizanData\logs\setup.log` and a photo of the screen to your provider.
-
-Silent update (technician): `mizan-setup-<version>.exe /VERYSILENT /SUPPRESSMSGBOXES /NORESTART /ShopCode=<code> /ShopName="<name>" /LOG="C:\path\inno.log"`. Add `/LocalOnly=1` to close the network. A fresh silent install also needs `/AdminPassword=...`.
+Silent update (technician): `mizan-setup.exe /VERYSILENT /SUPPRESSMSGBOXES /NORESTART /ShopCode=<code> /ShopName="<name>" /LOG="C:\path\inno.log"`. Add `/LocalOnly=1` to close the network. A fresh silent install also needs `/AdminPassword=...`.
 
 ---
 
@@ -556,12 +573,16 @@ Silent update (technician): `mizan-setup-<version>.exe /VERYSILENT /SUPPRESSMSGB
 | **"Windows protected your PC" (blue box)** | More info, then Run anyway. It shows because the installer has no publisher certificate yet. |
 | **Windows 11 "Smart App Control" blocks the installer with no Run anyway button** | Mizan is unsigned, so Smart App Control can block it. Turning Smart App Control off may be permanent on some builds. A technician decides this. |
 | **Receipt has margins, is cut off, or a print box appears** | Make the thermal printer the Windows default. Open Mizan from the desktop icon, not from a normal browser tab. Use 80 mm paper (58 mm rolls come out squeezed or cut). Print the proof page in Settings, "الأجهزة". A4 prints also come from the icon window. |
-| **Forgot the admin password** | Another admin resets it in "إدارة المستخدمين". No second admin: your installer runs, in an Administrator PowerShell with Mizan running: `powershell -ExecutionPolicy Bypass -File "C:\Program Files\Mizan\installer\setup.ps1" -Mode ResetAdmin -ShopCode <code> -AdminPassword "<new password, 8+ characters>"` |
+| **Cashier forgot the username or password** | Username: tap your name under "دخل من هذا الجهاز" on the login screen, or the owner reads it in Settings, إدارة المستخدمين, column "اسم الدخول". Password: the owner resets it with the key button in "إدارة المستخدمين". |
+| **Owner locked out** (forgot password or username) | On the main PC: Start menu, ميزان, "استعادة دخول صاحب المحل". It needs a Windows administrator. Details in section 8. No shortcut (installed before v0.0.52)? Run the new installer over the old one. Check Caps Lock and the Arabic keyboard warning on the login screen first. |
+| **Forgot the admin password, no shortcut** | Another admin resets it in "إدارة المستخدمين". No second admin: your installer runs, in an Administrator PowerShell with Mizan running: `powershell -ExecutionPolicy Bypass -File "C:\Program Files\Mizan\installer\setup.ps1" -Mode ResetAdmin -ShopCode <code> -AdminPassword "<new password, 8+ characters>"` |
 | **Logged out when you did not expect it** | A login lasts 7 days and renews while you work. You are logged out at once if the user was stopped, the password changed, or the device was retired. A different user logging in on the same browser profile ends the other window's session. |
 | **Device limit reached** (login says the licensed device count is full) | Log in on a device that works. Open "الترخيص والأجهزة", find the old device in the list "الأجهزة المسجَّلة", press "اسحب الجهاز", confirm "نعم، اسحبه". Or the login screen itself names the oldest device and asks to pull it. Remember: a normal browser tab on the till PC counts as a device, and so does a cleared browser. For more devices, ask your provider for a bigger size or an extra device. |
 | **Users limit reached** (the size allows N active users) | Stop a user you no longer need in "إدارة المستخدمين", or ask your provider for a bigger size. |
 | **Licence expired / "انتهت مدة الترخيص"** | Send your provider the install number (copy it from the screen). Paste the new code (section 7). Reports and backups work meanwhile. |
 | **Banner about the PC date** | The Windows date is far from the last run. Fix the date, time and time zone in Windows. Selling keeps working. |
+| **Red bar "تاريخ ووقت الجهاز خاطئ"** | The PC clock on the main PC is wrong, usually a dead motherboard battery (CR2032) that resets the date after each power cut. Selling continues, but every invoice carries the wrong date and reports split, so fix it at once. Right-click the clock at the bottom right, choose "Adjust date/time", switch "Set time automatically" off, press "Change" and enter the correct date and time. The bar clears within a minute. If it stays after the date is right, it is comparing with the last saved invoice and clears after the next new invoice. If it returns every morning, replace the motherboard battery. |
+| **The icon shows a message that Edge or Chrome is missing** (or Notepad opens with Arabic text) | Install Microsoft Edge or Google Chrome, then click the Mizan icon again. Download on a PC with internet and copy it over on a USB stick. Pick Windows 64-bit. Edge offline installer: microsoft.com/edge/business/download. Chrome offline installer: chromeenterprise.google/browser/download. Mizan tries Edge, then Chrome, then Brave, then Firefox (receipts print straight to the default printer there too). Notepad means a PC policy blocks PowerShell scripts: same fix. Until then Mizan keeps running: the message gives an address like `http://192.168.1.5:5009` to open on a phone or PC on the same router. If it says Mizan is open to this PC only, run the installer again and tick "allow other devices" (data and password stay). Do not open Mizan in a normal browser on the cashier PC itself: every browser counts as a device. |
 | **Bell alert "لا نسخة خارج المحل"** | You have no outside backup, or it is old. Set it up or press "زامن الآن" (section 9). |
 | **Scanner types odd letters** | Windows typing language must be English while you scan the "US Keyboard" setup code from the scanner manual. |
 | **Cash drawer does not open** | See section 2, "Cash drawer". |
